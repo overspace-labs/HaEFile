@@ -4,9 +4,9 @@
   "description": "HaE is a framework-style project in the field of cybersecurity (data security), adopting a Lego brick-style modular design philosophy to achieve fine-grained tagging and extraction of File and HTTP messages (including WebSocket).",
   "version": "1.0.1",
   "icon": "resources/images/logo.png",
-  "publisher": "0chencc-With-EvilChen",
+  "publisher": "OverSpace-Labs",
   "author": {
-    "name": "0chencc && EvilChen"
+    "name": "OverSpace-Labs"
   },
   "license": "Apache-2.0",
   "repository": {
