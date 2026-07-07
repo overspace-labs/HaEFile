@@ -1,0 +1,59 @@
+# ============================================================
+#  Release Workflow —— tag 触发自动构建 VSIX 并发布到 Releases
+# ============================================================
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'        # 匹配 v1.0.0 / v1.0.1 等标签
+  workflow_dispatch: # 允许手动触发（便于调试）
+
+permissions:
+  contents: write   # 创建 Release 需要写权限
+
+jobs:
+  release:
+    name: Build & Release VSIX
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🛠 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: sources/package-lock.json
+
+      - name: 📦 Install dependencies (root)
+        working-directory: sources
+        run: npm install
+
+      - name: 📦 Install dependencies (webview-ui)
+        working-directory: sources/webview-ui
+        run: npm install
+
+      - name: 🔨 Build & Package VSIX
+        working-directory: sources
+        run: npx vsce package --no-yarn -o build/hae-${{ github.ref_name }}.vsix
+
+      - name: 📋 Upload VSIX artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hae-vsix
+          path: sources/build/*.vsix
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: 🚀 Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          generate_release_notes: true
+          files: sources/build/*.vsix
