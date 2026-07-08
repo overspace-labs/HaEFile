@@ -1,0 +1,41 @@
+# ============================================================
+#  .gitignore —— HaE VSCode 扩展
+# ============================================================
+
+# --- 依赖目录 ---
+node_modules/
+webview-ui/node_modules/
+
+# --- 构建产物 ---
+out/
+webview-ui/dist/
+build/
+
+# --- lock 文件（按需保留；如团队统一用 npm 可删除下面两行以提交 lock）---
+package-lock.json
+webview-ui/package-lock.json
+
+# --- TypeScript 增量缓存 ---
+*.tsbuildinfo
+
+# --- VS Code 测试产物 ---
+.vscode-test/
+*.vsix
+
+# --- 临时文件 / 日志 ---
+*.log
+.tmp/
+tmp/
+
+# --- 系统文件 ---
+.DS_Store
+Thumbs.db
+
+# --- IDE ---
+.idea/
+*.swp
+*.swo
+
+# --- 其它 ---
+.cache/
+coverage/

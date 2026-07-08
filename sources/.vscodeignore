@@ -1,0 +1,43 @@
+# ===========================================================
+#  .vscodeignore —— 控制打包进 .vsix 的文件
+#  默认包含全部文件，这里只列出需要排除的开发文件。
+#  运行时需要保留：out/、webview-ui/dist/、resources/、package.json、README.md
+# ===========================================================
+
+# --- 源码 & 编译配置 ---
+src/**
+tsconfig.json
+eslint.config.mjs
+.prettierrc
+.prettierignore
+
+# --- webview-ui 开发文件（仅保留 dist/）---
+webview-ui/src/**
+webview-ui/*.ts
+webview-ui/*.json
+webview-ui/*.html
+webview-ui/.eslintrc*
+webview-ui/.gitignore
+webview-ui/node_modules/**
+
+# --- 依赖目录 ---
+node_modules/**
+
+# --- 打包输出目录（避免 build/ 被打包进去）---
+build/**
+
+# --- 去掉 source map，减小体积 ---
+out/**/*.map
+
+# --- 元数据 / 工具 / 临时文件 ---
+.git**
+.github/**
+.vscode**
+.vscode-test**
+.tmp/**
+*.vsix
+Makefile
+.vscodeignore
+.gitignore
+**/*.log
+**/.DS_Store
